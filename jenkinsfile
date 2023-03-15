@@ -39,6 +39,11 @@ pipeline {
                 sh 'docker rmi -f premsai1503/miniproj:latest'
             }
         }
+        stage('Deploy and Run Image'){
+                    steps {
+                        ansiblePlaybook becomeUser: null, colorized: true, disableHostKeyChecking: true, installation: 'Ansible', inventory: 'inventory', playbook: 'playbook.yml', sudoUser: null
+                    }
+                }
 
     }
 }
