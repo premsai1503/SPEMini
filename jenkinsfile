@@ -22,5 +22,23 @@ pipeline {
             }
         }
 
+        stage('Build Docker Images') {
+            steps {
+                sh 'docker build -t premsai1503/miniproj:latest .'
+            }
+        }
+        stage('Publish Docker Images') {
+            steps {
+                withDockerRegistry([ credentialsId: "dockerid", url: "" ]) {
+                    sh 'docker push premsai1503/miniproj:latest'
+                }
+            }
+        }
+        stage('Clean Docker Images') {
+            steps {
+                sh 'docker rmi -f premsai1503/miniproj:latest'
+            }
+        }
+
     }
 }
