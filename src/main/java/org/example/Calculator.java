@@ -1,105 +1,116 @@
 package org.example;
 
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
+/**
+ * Hello world!
+ *
+ */
+import java.lang.Math;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-
+import java.util.*;
 public class Calculator {
-    private static final Logger logger = LogManager.getLogger(Calculator.class);
-    public Calculator() {
+    public static double root(double n) {
+        logger.info("[ROOT] - " + n);
+        if (n < 0) {
+            return Double.NaN;
+        }
+
+        double ans = Math.sqrt(n);
+        logger.info("[RESULT - ROOT] - " + ans);
+        return ans;
     }
+    public static double factorial (int n) {
+        logger.info("[FACTORIAL] - " + n);
+        if(n<0) {
+            return Double.NaN;
+        }
+        int ans=1;
+        for(int i=1;i<n+1;i++) {
+            ans*=i;
+        }
+        logger.info("[RESULT - FACTORIAL] - " + ans);
+        return ans;
+    }
+    public static double log(double n) {
+        logger.info("[LOG] - " + n);
+        double ans = Math.log(n);
+        logger.info("[RESULT - LOG] - " + ans);
+        return ans;
+    }
+    public static double power (double n1,double n2) {
+        logger.info("[POW] - " + n1+"-"+n2);
+        double ans = Math.pow(n1,n2);
+        logger.info("[RESULT - POW] - " + ans);
+        return ans;
+    }
+    private static final Logger logger = LogManager.getLogger(Calculator.class);
+    //	MyClass.class.getName()
+//	logger.entry();
+    public static void main( String[] args ) {
+//        System.out.println(logger.isDebugEnabled());
 
-    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+//    	logger.entry();
+        System.out.println("Welcome to Calculator Program");
+        System.out.println("Enter the number for the required operation");
+        System.out.println("1. Square root function - √x");
+        System.out.println("2. Factorial function - x!");
+        System.out.println("3. Natural logarithm (base е) - ln(x)");
+        System.out.println("4. Power function - x^" + "b");
+        int loop = sc.nextInt();
+//    	while (1==1) {
+        if (loop == 1) {
+            System.out.println("Square root function - √x");
+            System.out.println("Input the number");
+            double n = sc.nextDouble();
+            Double ans = root(n);
+            if (ans.isNaN()) {
+                System.out.println("Invalid input, Please Try again");
+                logger.error("Invalid input, Entered input is not of the expected type");
 
-        Calculator calculator = new Calculator();
-        Scanner scanner = new Scanner(System.in);
-        double number1, number2;
-        do {
-            System.out.println("Calculator-using-DevOps, Choose to perform operation");
-            System.out.print("Press 1 to find Multiplication\nPress 2 to find Cube Root\nPress 3 to find Square\nPress 4 to find Subtraction\n" +
-                    "Press 5 to exit\nEnter your choice: ");
-            int choice;
-            try {
-                choice = scanner.nextInt();
-            } catch (InputMismatchException error) {
                 return;
             }
+            System.out.println("Result: " + ans);
+        }
+        else if(loop==2) {
+            System.out.println("Factorial function - x!");
+            System.out.println("Input the number");
+            int n=sc.nextInt();
+            Double ans=factorial(n);
+            if(ans.isNaN()) {
+                System.out.println("Invalid input, Please Try again");
+                logger.error("Invalid input, Entered input is not of the expected type");
 
-            switch (choice) {
-                case 1:
-                    // do Multiplication
-                    System.out.print("Enter the first number : ");
-                    number1 = scanner.nextDouble();
-                    System.out.print("Enter the second number : ");
-                    number2 = scanner.nextDouble();
-                    System.out.println("Multiplication of "+number1+" and "+number2+" is : " + calculator.multiplication(number1,number2));
-                    System.out.println("\n");
-
-                    break;
-                case 2:
-                    // find cube root
-                    System.out.print("Enter a number : ");
-                    number1 = scanner.nextDouble();
-                    System.out.println("Cube root of "+number1+" is : " + calculator.cuberoot(number1));
-                    System.out.println("\n");
-
-                    break;
-                case 3:
-                    // find square
-                    System.out.print("Enter a number : ");
-                    number1 = scanner.nextDouble();
-                    System.out.println("Square of "+number1+" is : " + calculator.square(number1));
-                    System.out.println("\n");
-
-                    break;
-                case 4:
-                    // do Subtraction
-                    System.out.print("Enter the first number : ");
-                    number1 = scanner.nextDouble();
-                    System.out.print("Enter the second number : ");
-                    number2 = scanner.nextDouble();
-                    System.out.println("Subtraction of "+number2+" from "+number1+" is : " + calculator.sub(number1,number2));
-                    System.out.println("\n");
-
-                    break;
-                default:
-                    System.out.println("Exiting....");
-                    return;
+                return;
             }
-        } while (true);
+            System.out.println("Result: "+ ans);
+        }
+        else if(loop==3) {
+            System.out.println("Natural logarithm (base е) - ln(x)");
+            System.out.println("Input the number");
+            double n=sc.nextDouble();
+            Double ans=log(n);
+//			if(ans.isNaN()) {
+//				System.out.println("Invalid input, Please Try again");
+//				return;
+//			}
+            System.out.println("Result: "+ ans);
+        }else if(loop==4) {
+            System.out.println("Power function - x^"+ "b");
+            System.out.println("Input two numbers with space between them");
+            double n1=sc.nextDouble();
+            double n2=sc.nextDouble();
+            Double ans=power(n1,n2);
+//			if(ans.isNaN()) {
+//				System.out.println("Invalid input, Please Try again");
+//				return;
+//			}
+            System.out.println("Result: "+ ans);
+        }
+        else {
+            System.out.println("Invalid input, Please Try again");
+
+        }
     }
-
-
-    public double multiplication(double number1, double number2) {
-        logger.info("[MULTIPLICATION - " + number1 + " AND " + number2);
-        double result = number1 * number2;
-        logger.info("[RESULT - MULTIPLICATION] - " + result);
-        return result;
-    }
-
-    public double cuberoot(double number1) {
-        logger.info("[CUBE ROOT] - " + number1);
-        double result = Math.cbrt(number1);
-        logger.info("[RESULT - CUBE ROOT] - " + result);
-        return result;
-    }
-
-    public double square(double number1) {
-        logger.info("[SQUARE] - " + number1);
-        double result = number1 * number1;
-        logger.info("[RESULT - SQUARE] - " + result);
-        return result;
-    }
-
-    public double sub(double number1, double number2) {
-        logger.info("[SUBTRACTION - " + number2 + " FROM " + number1);
-        double result = number1 - number2;
-        logger.info("[RESULT - SUBTRACTION] - " + result);
-        return result;
-    }
-
-
 }
